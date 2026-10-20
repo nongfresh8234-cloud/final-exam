@@ -4,7 +4,7 @@
 
 ## ผลตรวจ
 
-**ฟังก์ชันหลักผ่านการตรวจและ deploy ทั้งสองส่วนแล้ว พร้อม MongoDB Atlas จริง ยังเหลือข้อมูลส่งงาน: ลิงก์ repository, recording และข้อมูลนักศึกษา**
+**ฟังก์ชันหลักผ่านการตรวจและ deploy ทั้งสองส่วนแล้ว พร้อม MongoDB Atlas จริง source ขึ้น GitHub แล้ว ยังเหลือข้อมูลส่งงาน: recording และข้อมูลนักศึกษา**
 
 | ข้อกำหนด | ผล | หลักฐาน |
 | --- | --- | --- |
@@ -34,7 +34,7 @@
 | Deploy backend | ผ่าน | https://csx4107-course-api.vercel.app; health ตอบ database connected |
 | Deploy frontend และเรียก deployed backend | ผ่าน | https://csx4107-course-web.vercel.app; login/search/enroll ผ่าน API คนละโดเมน |
 | Environment สำหรับ deployment | ผ่าน | Vercel กำหนด MONGODB_URI/JWT_SECRET เป็น Secret และ MONGODB_DB/FRONTEND_URL/VITE_API_URL เป็น Config |
-| Repository links สำหรับทั้งสองส่วน | ยังไม่มี | มี local Git snapshot แล้ว และ GitHub เชื่อมต่อแล้ว แต่ยังไม่มี remote repository สำหรับงานนี้ |
+| Repository links สำหรับทั้งสองส่วน | ผ่าน | https://github.com/nongfresh8234-cloud/final-exam มี next-backend และ react-frontend บน main |
 | Deployed URLs ทั้งสองส่วน | ผ่าน | บันทึก frontend/backend production URLs ใน README แล้ว |
 | ลิงก์บันทึกหน้าจอและกล้อง | ยังไม่ได้ระบุ | ผู้ใช้ต้องมีและแนบ recording จริง ไม่สามารถสร้างย้อนหลังแทนได้ |
 | ชื่อ/รหัสนักศึกษา/section | ยังไม่ได้ระบุ | README ยังมีช่องให้เติม |
@@ -79,13 +79,13 @@
 
 ใช้ in-app browser ตรวจ production ใน viewport ของแอปปัจจุบัน (615px wide) และใช้ screenshot ยืนยัน enrollment/My learning; desktop/mobile 1440/390/320px ทดสอบในเครื่องในรอบก่อนแล้ว รอบ production นี้ไม่ได้ทดสอบครบทุก browser หรือทุก viewport
 
-ตรวจ GitHub เพิ่มแล้ว: connector เชื่อมต่อได้ แต่ไม่มีเครื่องมือสร้าง repository ใน connector ที่ใช้อยู่, เครื่องไม่มี GitHub CLI ที่ล็อกอิน และ SSH ไม่ผ่าน authentication ส่วนเว็บ GitHub ใน in-app browser ยังต้อง sign in จึงยังไม่ได้สร้างหรือเผยแพร่ source repository ใหม่
+GitHub source repository: https://github.com/nongfresh8234-cloud/final-exam (Private), branch main; อัปโหลดผ่าน GitHub CLI และตรวจ remote แล้ว โดย .env, .data, .vercel, node_modules และ production secrets ถูกตัดออก
 
 ## สิ่งที่ยังเหลือสำหรับส่งงาน
 
-1. สร้าง/อัปโหลด source ไป remote repository แล้วใส่ลิงก์ทั้ง backend/frontend
-2. ผู้ใช้เติมชื่อ รหัสนักศึกษา และ section
-3. ผู้ใช้แนบลิงก์บันทึกหน้าจอและกล้องจริง
+1. ผู้ใช้เติมชื่อ รหัสนักศึกษา และ section
+2. ผู้ใช้แนบลิงก์บันทึกหน้าจอและกล้องจริง
+3. Repository เป็น Private จึงต้องให้ผู้ตรวจเข้าถึง repository ก่อนส่ง หากผู้ตรวจยังไม่มีสิทธิ์
 
 ## เอกสาร deployment ที่ตรวจประกอบ
 
