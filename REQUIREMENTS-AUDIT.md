@@ -52,7 +52,7 @@
 - `npm run build` — ผ่าน production build ทั้งสองโปรเจกต์
 - `npm test` — ผ่าน 53 API checks บน production Next.js และ MongoDB แยกสำหรับทดสอบ
 - ได้ตรวจ source ของ login, user context, role guards, CRUD, enroll, search และ course status เทียบกับ PDF
-- UI ในเครื่องเคยทดสอบผ่าน Playwright; หลัง deploy ทดสอบผ่าน in-app browser เพิ่ม: login, search, details, enrollment และ My learning
+- UI ในเครื่องเคยทดสอบผ่าน Playwright; หลัง deploy ทดสอบผ่าน in-app browser เพิ่ม: login, search, details, enrollment และ My learning หลัง reload (session และ enrollment คงอยู่)
 
 ## สถานะ deployment
 
@@ -63,6 +63,23 @@
 - ตรวจไฟล์ก่อน upload แล้ว: ไม่ส่ง .env, .data, .vercel, node_modules หรือ MongoDB password/JWT secret ขึ้นเป็น source
 - Secret ที่จำเป็นถูกส่งผ่าน stdin ไป Vercel environment ไม่อยู่ใน command arguments หรือ source code
 - ไม่มีการเปลี่ยนโค้ด business rules ในขั้นตอน deployment; เพิ่ม install command เพื่อข้ามดาวน์โหลด MongoDB binary สำหรับ local-only tooling บน Vercel
+
+## Post-deployment QA
+
+| Check | ผล |
+| --- | --- |
+| Production URL และชื่อหน้าเว็บถูกต้อง | ผ่าน |
+| หน้าจอมีเนื้อหาและไม่มี framework error overlay | ผ่าน |
+| Login จากเว็บไป API คนละโดเมน | ผ่าน |
+| ค้นหาชื่อครูแล้วเห็นเฉพาะคอร์สที่ตรงกัน | ผ่าน |
+| Student ลงทะเบียนแล้วเห็นข้อความยืนยันและจำนวนผู้เรียนเพิ่ม | ผ่าน |
+| My learning และ session หลัง reload | ผ่าน |
+| Production API smoke tests | ผ่าน 29 ข้อ |
+| Runtime error logs ในช่วง 5 นาทีที่ตรวจ | 0 records |
+
+ใช้ in-app browser ตรวจ production ใน viewport ของแอปปัจจุบัน (615px wide) และใช้ screenshot ยืนยัน enrollment/My learning; desktop/mobile 1440/390/320px ทดสอบในเครื่องในรอบก่อนแล้ว รอบ production นี้ไม่ได้ทดสอบครบทุก browser หรือทุก viewport
+
+ตรวจ GitHub เพิ่มแล้ว: connector เชื่อมต่อได้ แต่ไม่มีเครื่องมือสร้าง repository ใน connector ที่ใช้อยู่, เครื่องไม่มี GitHub CLI ที่ล็อกอิน และ SSH ไม่ผ่าน authentication ส่วนเว็บ GitHub ใน in-app browser ยังต้อง sign in จึงยังไม่ได้สร้างหรือเผยแพร่ source repository ใหม่
 
 ## สิ่งที่ยังเหลือสำหรับส่งงาน
 
