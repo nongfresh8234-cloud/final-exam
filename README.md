@@ -2,6 +2,13 @@
 
 ระบบคอร์สออนไลน์ตามโจทย์ CSX4107 ใช้ **Next.js 16 + React 19 (Vite) + MongoDB** และรักษาโครงสร้าง `next-backend/` กับ `react-frontend/` เดิม
 
+## Source Repository
+
+- Repository: https://github.com/nongfresh8234-cloud/final-exam
+- Backend source: https://github.com/nongfresh8234-cloud/final-exam/tree/main/next-backend
+- Frontend source: https://github.com/nongfresh8234-cloud/final-exam/tree/main/react-frontend
+- รวม source ทั้งสองส่วนไว้ใน monorepo เดียว โดยยังแยกโฟลเดอร์และ deployment ตามเดิม
+
 ## Deployed Applications
 
 - **Frontend:** https://csx4107-course-web.vercel.app
@@ -176,8 +183,8 @@ Deploy สำเร็จแล้วตาม URL ด้านบน มี `ve
 ## Submission Checklist
 
 - [ ] เติมชื่อ รหัสนักศึกษา และ section ด้านบน
-- [ ] Backend repository link: ยังไม่ได้สร้าง/ระบุ
-- [ ] Frontend repository link: ยังไม่ได้สร้าง/ระบุ (ถ้าใช้ monorepo ให้ส่งลิงก์แต่ละโฟลเดอร์)
+- [x] Backend repository link: https://github.com/nongfresh8234-cloud/final-exam/tree/main/next-backend
+- [x] Frontend repository link: https://github.com/nongfresh8234-cloud/final-exam/tree/main/react-frontend
 - [x] Backend deployed URL: https://csx4107-course-api.vercel.app
 - [x] Frontend deployed URL: https://csx4107-course-web.vercel.app
 - [ ] Screen-recording link: ผู้ใช้ต้องบันทึกและแนบเอง
