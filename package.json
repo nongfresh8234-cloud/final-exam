@@ -1,0 +1,11 @@
+{
+  "name": "online-course-service",
+  "private": true,
+  "scripts": {
+    "setup": "npm --prefix next-backend ci --no-audit --no-fund && npm --prefix react-frontend ci --no-audit --no-fund",
+    "dev": "node scripts/dev.mjs",
+    "lint": "npm --prefix next-backend run lint && npm --prefix react-frontend run lint",
+    "build": "npm --prefix next-backend run build && npm --prefix react-frontend run build",
+    "test": "npm --prefix next-backend run test:api"
+  }
+}
