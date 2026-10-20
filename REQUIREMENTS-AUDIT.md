@@ -79,13 +79,12 @@
 
 ใช้ in-app browser ตรวจ production ใน viewport ของแอปปัจจุบัน (615px wide) และใช้ screenshot ยืนยัน enrollment/My learning; desktop/mobile 1440/390/320px ทดสอบในเครื่องในรอบก่อนแล้ว รอบ production นี้ไม่ได้ทดสอบครบทุก browser หรือทุก viewport
 
-GitHub source repository: https://github.com/nongfresh8234-cloud/final-exam (Private), branch main; อัปโหลดผ่าน GitHub CLI และตรวจ remote แล้ว โดย .env, .data, .vercel, node_modules และ production secrets ถูกตัดออก
+GitHub source repository: https://github.com/nongfresh8234-cloud/final-exam (Public), branch main; อัปโหลดผ่าน GitHub CLI และตรวจ remote แล้ว โดย .env, .data, .vercel, node_modules และ production secrets ถูกตัดออก
 
 ## สิ่งที่ยังเหลือสำหรับส่งงาน
 
 1. ผู้ใช้เติมชื่อ รหัสนักศึกษา และ section
 2. ผู้ใช้แนบลิงก์บันทึกหน้าจอและกล้องจริง
-3. Repository เป็น Private จึงต้องให้ผู้ตรวจเข้าถึง repository ก่อนส่ง หากผู้ตรวจยังไม่มีสิทธิ์
 
 ## เอกสาร deployment ที่ตรวจประกอบ
 
