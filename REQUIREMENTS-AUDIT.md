@@ -4,7 +4,7 @@
 
 ## ผลตรวจ
 
-**ยังไม่พบฟังก์ชันหลักที่ขาดหรือขัดกับโจทย์จากการตรวจโค้ดและทดสอบในเครื่อง แต่ยังไม่ครบงานส่ง เพราะยังไม่ได้ deploy และยังไม่มีลิงก์ repository/วิดีโอ/ข้อมูลนักศึกษา**
+**ฟังก์ชันหลักผ่านการตรวจและ deploy ทั้งสองส่วนแล้ว พร้อม MongoDB Atlas จริง ยังเหลือข้อมูลส่งงาน: ลิงก์ repository, recording และข้อมูลนักศึกษา**
 
 | ข้อกำหนด | ผล | หลักฐาน |
 | --- | --- | --- |
@@ -31,18 +31,18 @@
 | Close มองเห็นแต่ลงไม่ได้ | ผ่าน | API คืนคอร์ส; enroll = 409 และปุ่มปิด |
 | Cancel ไม่แสดง/ลงไม่ได้ | ผ่าน | list ซ่อน; detail/enroll = 404 สำหรับ Student |
 | ตรวจสิทธิ์และเงื่อนไขที่ backend | ผ่าน | route handlers ตรวจทุกครั้ง ไม่พึ่งปุ่ม frontend อย่างเดียว |
-| Deploy backend | ยังไม่ได้ทำ | ไม่มี Vercel account connection/token และ external MongoDB ที่เข้าถึงได้ |
-| Deploy frontend และเรียก deployed backend | ยังไม่ได้ทำ | ต้องมี deployed backend URL เพื่อกำหนด VITE_API_URL |
-| Environment สำหรับ deployment | เตรียมไฟล์แล้ว แต่ยังไม่ได้ตั้งจริง | .env.example และ vercel.json ของทั้งสองโปรเจกต์ |
-| Repository links สำหรับทั้งสองส่วน | ยังไม่มี | โฟลเดอร์นี้ยังไม่เป็น Git repository และ GitHub connector ยังไม่เชื่อมต่อ |
-| Deployed URLs ทั้งสองส่วน | ยังไม่มี | ยังไม่มี deployment จริง |
+| Deploy backend | ผ่าน | https://csx4107-course-api.vercel.app; health ตอบ database connected |
+| Deploy frontend และเรียก deployed backend | ผ่าน | https://csx4107-course-web.vercel.app; login/search/enroll ผ่าน API คนละโดเมน |
+| Environment สำหรับ deployment | ผ่าน | Vercel กำหนด MONGODB_URI/JWT_SECRET เป็น Secret และ MONGODB_DB/FRONTEND_URL/VITE_API_URL เป็น Config |
+| Repository links สำหรับทั้งสองส่วน | ยังไม่มี | มี local Git snapshot แล้ว และ GitHub เชื่อมต่อแล้ว แต่ยังไม่มี remote repository สำหรับงานนี้ |
+| Deployed URLs ทั้งสองส่วน | ผ่าน | บันทึก frontend/backend production URLs ใน README แล้ว |
 | ลิงก์บันทึกหน้าจอและกล้อง | ยังไม่ได้ระบุ | ผู้ใช้ต้องมีและแนบ recording จริง ไม่สามารถสร้างย้อนหลังแทนได้ |
 | ชื่อ/รหัสนักศึกษา/section | ยังไม่ได้ระบุ | README ยังมีช่องให้เติม |
 
 ## ข้อควรแยกให้ชัด
 
 - `mongodb-memory-server` สำหรับ local เปิด MongoDB server จริงและเก็บข้อมูลใน .data จึงตรงเทคโนโลยี MongoDB สำหรับการตรวจในเครื่อง แต่ **ไม่ใช่ฐานข้อมูลที่ deploy แล้ว** และไม่ใช้แทน Atlas บน Vercel
-- ยังไม่ยืนยันว่า environment, CORS และการเชื่อมต่อทำงานบน URL ภายนอก จนกว่าจะ deploy และทดสอบ URL จริง
+- ยืนยัน environment, CORS และการเชื่อมต่อจาก URL จริงแล้ว: production API smoke tests ผ่าน 29 ข้อ และ UI login/search/enrollment ผ่าน in-app browser
 - ไม่มีการใช้ Sites แทน Next.js/MongoDB เพราะ runtime ของ Sites ไม่ตรงกับ backend ที่โจทย์กำหนด
 - ไม่พบข้อกำหนดให้สมัครสมาชิก, แก้ไข role, จ่ายเงินจริง, มีเนื้อหาบทเรียน หรือถอน enrollment จึงไม่ถือว่า feature เหล่านี้ขาด
 
@@ -52,16 +52,23 @@
 - `npm run build` — ผ่าน production build ทั้งสองโปรเจกต์
 - `npm test` — ผ่าน 53 API checks บน production Next.js และ MongoDB แยกสำหรับทดสอบ
 - ได้ตรวจ source ของ login, user context, role guards, CRUD, enroll, search และ course status เทียบกับ PDF
-- UI flow เคยทดสอบผ่าน Playwright ในงานรอบก่อน; รอบนี้เป็นการตรวจข้อกำหนดและทดสอบ build/API ซ้ำ ไม่มีการเปลี่ยน UI
+- UI ในเครื่องเคยทดสอบผ่าน Playwright; หลัง deploy ทดสอบผ่าน in-app browser เพิ่ม: login, search, details, enrollment และ My learning
 
-## สิ่งที่ต้องทำเพื่อปิดงาน
+## สถานะ deployment
 
-1. เชื่อมต่อ Vercel และ MongoDB Atlas เพื่อสร้าง backend/frontend deployment และฐานข้อมูลถาวร
-2. เชื่อมต่อ GitHub เพื่อจัดเก็บ source และสร้างลิงก์ส่งงาน
-3. Seed ข้อมูลบน MongoDB ภายนอก; ตั้ง MONGODB_URI, MONGODB_DB, JWT_SECRET, FRONTEND_URL และ VITE_API_URL
-4. ทดสอบ login, ownership, CRUD, enroll และ status ผ่าน deployed frontend/backend จริง
-5. ใส่ deployed URLs และ repository links ใน README
-6. ผู้ใช้เติมข้อมูลนักศึกษา และแนบลิงก์ recording
+- Backend: READY, production, Next.js 16.3.1
+- Frontend: READY, production, Vite/React
+- Source snapshot ที่ deploy: `2eefa4b` (local Git)
+- MongoDB Atlas: มี Teacher 3, Student 3 และคอร์สตัวอย่าง 8 คอร์ส โดย Student เห็นเฉพาะ 7 คอร์สที่ไม่ Cancel
+- ตรวจไฟล์ก่อน upload แล้ว: ไม่ส่ง .env, .data, .vercel, node_modules หรือ MongoDB password/JWT secret ขึ้นเป็น source
+- Secret ที่จำเป็นถูกส่งผ่าน stdin ไป Vercel environment ไม่อยู่ใน command arguments หรือ source code
+- ไม่มีการเปลี่ยนโค้ด business rules ในขั้นตอน deployment; เพิ่ม install command เพื่อข้ามดาวน์โหลด MongoDB binary สำหรับ local-only tooling บน Vercel
+
+## สิ่งที่ยังเหลือสำหรับส่งงาน
+
+1. สร้าง/อัปโหลด source ไป remote repository แล้วใส่ลิงก์ทั้ง backend/frontend
+2. ผู้ใช้เติมชื่อ รหัสนักศึกษา และ section
+3. ผู้ใช้แนบลิงก์บันทึกหน้าจอและกล้องจริง
 
 ## เอกสาร deployment ที่ตรวจประกอบ
 

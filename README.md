@@ -2,6 +2,16 @@
 
 ระบบคอร์สออนไลน์ตามโจทย์ CSX4107 ใช้ **Next.js 16 + React 19 (Vite) + MongoDB** และรักษาโครงสร้าง `next-backend/` กับ `react-frontend/` เดิม
 
+## Deployed Applications
+
+- **Frontend:** https://csx4107-course-web.vercel.app
+- **Backend:** https://csx4107-course-api.vercel.app
+- **Health:** https://csx4107-course-api.vercel.app/api/health
+- Database: MongoDB Atlas Free Tier, project **CSX4107 Course Service**, cluster **course-service**, database **course_service**
+- Deploy แยก 2 Vercel projects ใน scope `dekfrxsh`: `csx4107-course-api` และ `csx4107-course-web`
+- ตรวจจริงวันที่ 20 ตุลาคม 2026: production builds สำเร็จ, health เชื่อม Atlas, API smoke tests ผ่าน 29 ข้อ และทดสอบ login/search/enrollment ผ่าน deployed frontend
+- บัญชีด้านล่างใช้ได้ทั้งในเครื่องและบนเว็บที่ deploy แล้ว
+
 ## Student Information
 
 - **Student Name:** ยังไม่ได้ระบุ — เติมก่อนส่ง
@@ -79,7 +89,9 @@ npm test
 
 `npm test` ต้อง build backend ก่อน และจะเปิด production Next.js ที่พอร์ต 3107 พร้อม MongoDB แยกสำหรับทดสอบ ไม่แก้ไขฐานข้อมูลที่ใช้งานในเครื่อง ตรวจ 53 ข้อ ได้แก่ authentication, สิทธิ์, ownership, input validation, ชื่อคอร์ส/ครู, Open/Close/Cancel, enrolled student details, logout revocation และ concurrent enrollment (ลงซ้ำ/แย่งที่นั่งสุดท้าย) สามารถเปลี่ยนพอร์ตด้วย `TEST_PORT=3108 npm test`
 
-ทดสอบ frontend เพิ่มด้วย Playwright: login ผิด/ถูก, ค้นหา, ดูรายละเอียด, ลงทะเบียน, My learning, reload คง session, ดูรายชื่อผู้เรียน, สร้าง/แก้ไข/ลบคอร์ส, empty state และหน้าจอ desktop/mobile
+การทดสอบในเครื่องรอบแรกใช้ Playwright: login ผิด/ถูก, ค้นหา, ดูรายละเอียด, ลงทะเบียน, My learning, reload คง session, ดูรายชื่อผู้เรียน, สร้าง/แก้ไข/ลบคอร์ส, empty state และหน้าจอ desktop/mobile
+
+หลัง deploy ได้ทดสอบ API จริงเพิ่ม 29 ข้อ (health, CORS, login ทั้ง 6 บัญชี, ownership, search, restrictions, CRUD ของคอร์สทดสอบชั่วคราว และ logout revocation) และทดสอบ UI จริงผ่าน in-app browser: login → ค้นหา → ลงทะเบียน → My learning
 
 ## ใช้ MongoDB ที่มีอยู่ / MongoDB Atlas
 
@@ -147,7 +159,7 @@ npm run dev -- -p 3001
 
 ## Deploy บน Vercel
 
-มี `vercel.json` สำหรับทั้งสองโปรเจกต์แล้ว แต่ **ยังไม่ได้ deploy** เนื่องจากยังไม่มีบัญชี Vercel และ MongoDB Atlas
+Deploy สำเร็จแล้วตาม URL ด้านบน มี `vercel.json` สำหรับทั้งสองโปรเจกต์ และ environment บน Vercel กำหนดครบแล้ว ส่วนคำแนะนำต่อไปนี้ใช้สำหรับทำซ้ำหรือย้ายบัญชี
 
 1. สร้าง MongoDB Atlas cluster, database user และตั้ง Network Access ให้ deployment เชื่อมต่อได้ เก็บ connection string ไว้เป็น secret
 2. นำ source code ขึ้น GitHub repository ของตนเอง โครงสร้าง monorepo นี้ deploy แยกได้สอง Vercel projects โดยไม่ต้องแยก source ออกจากกัน
@@ -166,8 +178,8 @@ npm run dev -- -p 3001
 - [ ] เติมชื่อ รหัสนักศึกษา และ section ด้านบน
 - [ ] Backend repository link: ยังไม่ได้สร้าง/ระบุ
 - [ ] Frontend repository link: ยังไม่ได้สร้าง/ระบุ (ถ้าใช้ monorepo ให้ส่งลิงก์แต่ละโฟลเดอร์)
-- [ ] Backend deployed URL: ยังไม่ได้ deploy
-- [ ] Frontend deployed URL: ยังไม่ได้ deploy
+- [x] Backend deployed URL: https://csx4107-course-api.vercel.app
+- [x] Frontend deployed URL: https://csx4107-course-web.vercel.app
 - [ ] Screen-recording link: ผู้ใช้ต้องบันทึกและแนบเอง
 
 การตั้งค่าหรือสร้างแอปไม่สามารถทดแทนการบันทึกหน้าจอและกล้องตลอดช่วงเวลาที่โจทย์กำหนดได้
